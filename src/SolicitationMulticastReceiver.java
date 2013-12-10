@@ -1,16 +1,17 @@
 import java.io.*;
 import java.net.*;
 public class SolicitationMulticastReceiver implements Runnable {
-
+	
+	private String diretorio = null;
 
 	public void run() {
 
 		MulticastSocket socket = null;
 		DatagramPacket inPacket = null;
 
-		File diretorioPadrao = null;
-
 		String[] listaDeArquivos = null;
+		
+		File diretorioPadrao = null;
 
 		boolean arquivoEncontrado = false;
 
@@ -22,7 +23,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 			InetAddress address = InetAddress.getByName("224.2.2.8");
 			socket.joinGroup(address);
 
-			diretorioPadrao = new File("C:/TRANSFERENCIA/");
+			diretorioPadrao = new File(getDiretorio());
 			//verifica se o diretorio existe, caso sim crie uma lista com os arquivos contidos 
 			if(diretorioPadrao.isDirectory()) {
 				System.out.println("Sim, " + diretorioPadrao.getAbsolutePath() + " é um diretório" + "\n");
@@ -92,11 +93,11 @@ public class SolicitationMulticastReceiver implements Runnable {
 		} 
 	}  
 	
-	private void tentaEnviarArquivo(InetAddress address, String msg) {
+	private void tentaEnviarArquivo(InetAddress address, String file) {
 		try {
 			
 			Thread.sleep(3000);
-			FileSender fileSnd = new FileSender(address, msg);
+			FileSender fileSnd = new FileSender(address, file);
 			Thread threadFileSender = new Thread (fileSnd);
 			threadFileSender.start();
 		} catch(Exception e) {  
@@ -130,4 +131,18 @@ public class SolicitationMulticastReceiver implements Runnable {
 		}
 
 	}
+	
+	@SuppressWarnings("unused")
+	private SolicitationMulticastReceiver(){}
+	
+	public SolicitationMulticastReceiver(String diretorio){
+		this.diretorio = diretorio;
+	}
+
+	private String getDiretorio() {
+		return this.diretorio;
+	}
+	
+	
+	
 }
