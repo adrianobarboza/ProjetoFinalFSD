@@ -33,6 +33,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 			}
 
 			while (true) {
+				listaDeArquivos = diretorioPadrao.list();
 				inPacket = new DatagramPacket(inBuf, inBuf.length);
 				socket.receive(inPacket);
 				String msg = new String(inBuf, 0, inPacket.getLength());
