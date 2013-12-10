@@ -36,6 +36,7 @@ public class FileReceiver implements Runnable{
 			fos.flush();  
 			fos.close();  
 			System.out.println("Pronto. Arquivo recebido.\n");  
+			SolicitationMulticastReceiver.atualizaDiretorio();
 
 		} catch (Exception ex) {  
 			System.err.println("O servidor não enviou o arquivo \n"); 

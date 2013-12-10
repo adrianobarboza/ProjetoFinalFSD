@@ -1,21 +1,23 @@
 import java.io.*;
 import java.net.*;
 public class SolicitationMulticastReceiver implements Runnable {
-	
+
 	private String diretorio = null;
+
+	private static String[] listaDeArquivos = null;
+
+	private static File diretorioPadrao = null;
 
 	public void run() {
 
 		MulticastSocket socket = null;
 		DatagramPacket inPacket = null;
 
-		String[] listaDeArquivos = null;
-		
-		File diretorioPadrao = null;
+
 
 		boolean arquivoEncontrado = false;
 
-		byte[] inBuf = new byte[256];
+		byte[] inBuf = new byte[512];
 
 		try {
 			//Prepare to join multicast group
@@ -27,22 +29,18 @@ public class SolicitationMulticastReceiver implements Runnable {
 			//verifica se o diretorio existe, caso sim crie uma lista com os arquivos contidos 
 			if(diretorioPadrao.isDirectory()) {
 				System.out.println("Sim, " + diretorioPadrao.getAbsolutePath() + " é um diretório" + "\n");
-				listaDeArquivos = diretorioPadrao.list();
-				if(listaDeArquivos.length > 0) {
-					for(int i=0; i<listaDeArquivos.length; i++)
-						System.out.println(listaDeArquivos[i]);
-				}
+				atualizaDiretorio();
 			}
 
 			while (true) {
 				inPacket = new DatagramPacket(inBuf, inBuf.length);
 				socket.receive(inPacket);
 				String msg = new String(inBuf, 0, inPacket.getLength());
-				
+
 				//caso a mensagem recebida seja da prórpia máquina, então ignorar e reiniciar o laço
 				if(inPacket.getAddress().toString().contains(InetAddress.getLocalHost().getHostAddress().toString()))	
 					continue;
-					
+
 				System.out.println("\n" + inPacket.getAddress() + " Solicitou o arquivo: " + msg);
 
 				for(int i=0; i<listaDeArquivos.length; i++) {
@@ -79,22 +77,22 @@ public class SolicitationMulticastReceiver implements Runnable {
 	public void respondaPosseArquivoSocket(InetAddress inetAddress) throws Exception {
 
 		try { 
-			
+
 			SocketMessageSender confSnd = new SocketMessageSender();
 			Thread threadConfirmationSender = new Thread(confSnd);	
 			confSnd.setMensagem("Eu possuo o arquivo");
 			confSnd.setType(1);
 			confSnd.setEnderecoDestino(inetAddress);
 			threadConfirmationSender.start();
-			
+
 		} catch(Exception e) {  
 			System.err.println("Erro ao confirmar a posse do arquivo");
 		} 
 	}  
-	
+
 	private void tentaEnviarArquivo(InetAddress address, String file) {
 		try {
-			
+
 			Thread.sleep(3000);
 			FileSender fileSnd = new FileSender(address, file);
 			Thread threadFileSender = new Thread (fileSnd);
@@ -102,7 +100,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 		} catch(Exception e) {  
 			System.err.println("Erro ao tentar enviar o arquivo.");
 		} 
-		
+
 	}
 
 	public void respondaMulticast(String resposta) {
@@ -128,10 +126,10 @@ public class SolicitationMulticastReceiver implements Runnable {
 			System.out.println(ioe);
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
 	private SolicitationMulticastReceiver(){}
-	
+
 	public SolicitationMulticastReceiver(String diretorio){
 		this.diretorio = diretorio;
 	}
@@ -139,7 +137,16 @@ public class SolicitationMulticastReceiver implements Runnable {
 	private String getDiretorio() {
 		return this.diretorio;
 	}
-	
-	
-	
+
+	public static void atualizaDiretorio() {
+		listaDeArquivos = diretorioPadrao.list();
+		if(listaDeArquivos.length > 0) {
+			System.out.println("Arquivos do diretório:");
+			for(int i=0; i<listaDeArquivos.length; i++)
+				System.out.println(listaDeArquivos[i]);
+		}
+	}
+
+
+
 }
