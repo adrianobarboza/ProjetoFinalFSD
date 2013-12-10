@@ -38,6 +38,9 @@ public class SolicitationMulticastReceiver implements Runnable {
 				socket.receive(inPacket);
 				String msg = new String(inBuf, 0, inPacket.getLength());
 				
+				System.out.println(inPacket.getAddress().toString());
+				System.out.println(InetAddress.getLocalHost().getHostAddress().toString());
+				
 				//caso a mensagem recebida seja da prórpia máquina, então ignorar e reiniciar o laço
 				if(inPacket.getAddress().toString().contains(InetAddress.getLocalHost().getHostAddress().toString()))	
 					continue;
@@ -52,7 +55,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 				}
 
 				if(arquivoEncontrado) {
-					System.out.println("O arquivo " + msg + " foi encontrado !!!!!! Desktoppppp" + "\n");
+					System.out.println("O arquivo " + msg + " foi encontrado !!!!!!" + "\n");
 					//respondaMulticast("Eu, máquina " + InetAddress.getLocalHost().getHostAddress().toString() + ", possuo o arquivo " + msg + "\n");
 					try {
 						respondaSocket(inPacket.getAddress());

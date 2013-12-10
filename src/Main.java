@@ -13,7 +13,6 @@ public class Main {
 		Thread threadMultiCastSnd = new Thread(multiCastSnd);
 		threadMultiCastSnd.start();
 		
-		
 	}
 
 }
