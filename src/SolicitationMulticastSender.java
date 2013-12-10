@@ -19,9 +19,9 @@ public class SolicitationMulticastSender implements Runnable {
 			String solicitacao;
 			String nick;
 
-			System.out.println("\n"+"Qual o seu nick?");
+			System.out.println("\n"+"Qual o seu nome?");
 			nick = entrada.nextLine();
-			System.out.println("\nBem vindo ao chat, " + nick);
+			System.out.println("\nBem vindo ao console de solicitação de arquivos, " + nick);
 			System.out.println();
 
 			while (true) {

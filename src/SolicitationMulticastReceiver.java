@@ -13,8 +13,6 @@ public class SolicitationMulticastReceiver implements Runnable {
 		MulticastSocket socket = null;
 		DatagramPacket inPacket = null;
 
-
-
 		boolean arquivoEncontrado = false;
 
 		byte[] inBuf = new byte[512];
@@ -36,11 +34,21 @@ public class SolicitationMulticastReceiver implements Runnable {
 				listaDeArquivos = diretorioPadrao.list();
 				inPacket = new DatagramPacket(inBuf, inBuf.length);
 				socket.receive(inPacket);
+				
 				String msg = new String(inBuf, 0, inPacket.getLength());
 
 				//caso a mensagem recebida seja da prórpia máquina, então ignorar e reiniciar o laço
 				if(inPacket.getAddress().toString().contains(InetAddress.getLocalHost().getHostAddress().toString()))	
 					continue;
+				
+				Main.leArquivoAutorizados();
+				
+				if(Main.getListaDeAutorizados().contains(inPacket.getAddress().toString())) {
+					System.out.println("Solicitante autorizado.");
+				} else {
+					System.out.println("Solicitante não autorizado. \n");
+					continue;
+				}
 
 				System.out.println("\n" + inPacket.getAddress() + " Solicitou o arquivo: " + msg);
 
