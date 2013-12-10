@@ -34,10 +34,25 @@ public class SolicitationMulticastSender implements Runnable {
 				outPacket = new DatagramPacket(outBuf, outBuf.length, address, PORT);
 
 				socket.send(outPacket);
+				
+				esperaRecebimentoResposta();
 
 			}
 		} catch (IOException ioe) {
 			System.out.println(ioe);
 		}
+	}
+
+	private void esperaRecebimentoResposta() {
+		
+		try { 
+			ConfirmationResponseReceiver confRcv = new ConfirmationResponseReceiver();
+			Thread threadConfirmationReceiver = new Thread(confRcv);	
+			threadConfirmationReceiver.start();
+		} catch (Exception e) {
+			e.printStackTrace();  
+			System.err.println("Erro ao esperar o recebimento de confirmação de posse de arquivo");
+		}
+			
 	}
 }

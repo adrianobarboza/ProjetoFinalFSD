@@ -54,8 +54,9 @@ public class SolicitationMulticastReceiver implements Runnable {
 				if(arquivoEncontrado) {
 					System.out.println("O arquivo " + msg + " foi encontrado !!!!!!" + "\n");
 					//respondaMulticast("Eu, máquina " + InetAddress.getLocalHost().getHostAddress().toString() + ", possuo o arquivo " + msg + "\n");
+					//confirmationSenderSocket("Eu, máquina " + InetAddress.getLocalHost().getHostAddress().toString() + ", possuo o arquivo " + msg + "\n");
 					try {
-						respondaSocket(inPacket.getAddress());
+						respondaPosseArquivoSocket(inPacket.getAddress());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -73,19 +74,19 @@ public class SolicitationMulticastReceiver implements Runnable {
 
 	}
 
-	public void respondaSocket(InetAddress inetAddress) throws Exception {
+	public void respondaPosseArquivoSocket(InetAddress inetAddress) throws Exception {
 
 		try { 
 			
-			ConfirmationResponseSender confResponse = new ConfirmationResponseSender();
-			Thread threadResponse = new Thread(confResponse);	
-			confResponse.setMensagem("Eu possuo o arquivo");
-			confResponse.setEnderecoDestino(inetAddress);
-			threadResponse.start();
+			ConfirmationResponseSender confSnd = new ConfirmationResponseSender();
+			Thread threadConfirmationSender = new Thread(confSnd);	
+			confSnd.setMensagem("Eu possuo o arquivo");
+			confSnd.setEnderecoDestino(inetAddress);
+			threadConfirmationSender.start();
 			
 		} catch(Exception e) {  
 			e.printStackTrace();  
-			System.err.println("Deu erro fiiiiiiiii");
+			System.err.println("Erro ao confirmar a posse do arquivo");
 		} 
 	}  
 

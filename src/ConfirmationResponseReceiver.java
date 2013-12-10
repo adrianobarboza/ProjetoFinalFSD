@@ -4,29 +4,27 @@ import java.io.ObjectInputStream;
 
 
 public class ConfirmationResponseReceiver implements Runnable{
-	
+
 	private ServerSocket ss;
 
 	public void run() {
 
 		try {
-			
+
 			ss = new ServerSocket(9192);  
+			//System.out.println("Esperando por arquivos."); 
+			//ss.setSoTimeout(10000);
+			//Socket socket = null;
+			Socket socket = ss.accept(); 
 
-			while(true) {  
+			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());  
+			String resposta = in.readUTF();  
 
-				//System.out.println("Esperando por arquivos."); 
-				//ss.setSoTimeout(10000);
-				//Socket socket = null;
-				Socket socket = ss.accept(); 
+			System.out.println(resposta);
 
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());  
-				String resposta = in.readUTF();  
-
-				System.out.println(resposta);
-			}  
 		} catch (Exception ex) {  
 			ex.printStackTrace();  
+			System.err.println("Erro ao receber a mensagem de confirmação");
 		}  
 
 	}  
