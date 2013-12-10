@@ -18,8 +18,7 @@ public class ConfirmationResponseSender implements Runnable {
 			out.close();  
 			socket.close();  
  
-		} catch(Exception e) {  
-			//e.printStackTrace();  
+		} catch(Exception e) {   
 			System.err.println("O servidor que solicitou o arquivo não está disponível para recebimento da confirmação");
 		}  
 	}

@@ -1,5 +1,6 @@
 import java.net.ServerSocket;  
 import java.net.Socket;  
+import java.io.IOException;
 import java.io.ObjectInputStream;    
 
 
@@ -12,9 +13,7 @@ public class ConfirmationResponseReceiver implements Runnable{
 		try {
 
 			ss = new ServerSocket(9192);  
-			//System.out.println("Esperando por arquivos."); 
-			//ss.setSoTimeout(10000);
-			//Socket socket = null;
+			ss.setSoTimeout(2000);
 			Socket socket = ss.accept(); 
 
 			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());  
@@ -23,9 +22,14 @@ public class ConfirmationResponseReceiver implements Runnable{
 			System.out.println(resposta);
 
 		} catch (Exception ex) {  
-			ex.printStackTrace();  
-			System.err.println("Erro ao receber a mensagem de confirmação");
-		}  
+			System.err.println("Não foi obtida nenhuma mensagem de confirmação");
+		}  finally {
+			try {
+				this.ss.close();
+			} catch (IOException e) {
+				System.err.println("Não foi possível fechar o socket de receber a mensagem de confirmação");
+			}
+		}
 
 	}  
 }

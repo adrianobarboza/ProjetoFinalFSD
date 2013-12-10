@@ -50,7 +50,6 @@ public class SolicitationMulticastSender implements Runnable {
 			Thread threadConfirmationReceiver = new Thread(confRcv);	
 			threadConfirmationReceiver.start();
 		} catch (Exception e) {
-			e.printStackTrace();  
 			System.err.println("Erro ao esperar o recebimento de confirmação de posse de arquivo");
 		}
 			

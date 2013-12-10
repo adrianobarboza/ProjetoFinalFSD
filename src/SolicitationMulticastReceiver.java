@@ -85,7 +85,6 @@ public class SolicitationMulticastReceiver implements Runnable {
 			threadConfirmationSender.start();
 			
 		} catch(Exception e) {  
-			e.printStackTrace();  
 			System.err.println("Erro ao confirmar a posse do arquivo");
 		} 
 	}  
