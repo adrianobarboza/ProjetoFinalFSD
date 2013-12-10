@@ -21,7 +21,7 @@ public class SolicitationMulticastSender implements Runnable {
 
 			System.out.println("\n"+"Qual o seu nick?");
 			nick = entrada.nextLine();
-			System.out.println("Bem vindo ao chat, " + nick);
+			System.out.println("\nBem vindo ao chat, " + nick);
 			System.out.println();
 
 			while (true) {
@@ -50,7 +50,7 @@ public class SolicitationMulticastSender implements Runnable {
 			Thread threadConfirmationReceiver = new Thread(confRcv);	
 			threadConfirmationReceiver.start();
 		} catch (Exception e) {
-			System.err.println("Erro ao esperar o recebimento de confirmação de posse de arquivo");
+			System.err.println("Erro ao esperar o recebimento de confirmação de posse de arquivo\n");
 		}
 			
 	}
