@@ -52,7 +52,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 				}
 
 				if(arquivoEncontrado) {
-					System.out.println("O arquivo " + msg + " foi encontrado !!!!!! Desktoppppp" + "\n");
+					System.out.println("O arquivo " + msg + " foi encontrado !!!!!!" + "\n");
 					//respondaMulticast("Eu, máquina " + InetAddress.getLocalHost().getHostAddress().toString() + ", possuo o arquivo " + msg + "\n");
 					try {
 						respondaSocket(inPacket.getAddress());
