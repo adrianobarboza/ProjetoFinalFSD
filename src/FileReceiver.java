@@ -12,7 +12,7 @@ public class FileReceiver implements Runnable{
 	public void run(){
 		
 		try {  
-			ss = new ServerSocket(9191); 
+			ss = new ServerSocket(9292); 
 			ss.setSoTimeout(3000);
 			System.out.println("Esperando por arquivos.");  
 			Socket socket = ss.accept();  
