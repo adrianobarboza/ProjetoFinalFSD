@@ -32,7 +32,7 @@ public class SolicitationMulticastSender implements Runnable {
 				//Send to multicast IP address and port
 				InetAddress address = InetAddress.getByName("224.2.2.8");
 				outPacket = new DatagramPacket(outBuf, outBuf.length, address, PORT);
-
+				
 				socket.send(outPacket);
 				
 				esperaRecebimentoResposta();

@@ -22,9 +22,10 @@ public class FileReceiver implements Runnable{
 
 			System.out.println("Processando arquivo: " + fileName + " - " + size + " bytes.");  
 
-			FileOutputStream fos = new FileOutputStream("c:/TRANSFERENCIA/" + fileName);
+			//FileOutputStream fos = new FileOutputStream("c:/TRANSFERENCIA/" + fileName); 
+			FileOutputStream fos = new FileOutputStream(Main.diretorio + fileName);
 			byte[] buf = new byte[(int)size];  
-
+			
 			while(true) { 
 
 				int len = in.read(buf);  

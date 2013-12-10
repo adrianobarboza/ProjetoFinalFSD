@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Main {
 	
+	static String diretorio;
+	
 	public static void main(String[] args) throws InterruptedException {
 		
-		String diretorio = "C:/TRANSFERENCIA/";
+		diretorio = "C:/TRANSFERENCIA/";
 		String resposta = null;
 		Scanner entrada = new Scanner (System.in); 
 		
@@ -15,6 +17,8 @@ public class Main {
 			System.out.println("Digite o diretório desejado: ");
 			diretorio = entrada.nextLine();
 		}
+		
+		entrada.close();
 
 		
 		SolicitationMulticastReceiver multiCastRcv = new SolicitationMulticastReceiver(diretorio);
