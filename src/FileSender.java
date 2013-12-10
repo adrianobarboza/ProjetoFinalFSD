@@ -30,7 +30,8 @@ public class FileSender implements Runnable{
 				out.write(buf, 0, len);   
 			}  
 			out.close();  
-			socket.close();  
+			socket.close(); 
+			in.close();
 			System.out.println("Pronto.");  
 		} catch(Exception e) {  
 			e.printStackTrace();  
