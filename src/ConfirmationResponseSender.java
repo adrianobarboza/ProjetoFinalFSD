@@ -2,11 +2,10 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-
 public class ConfirmationResponseSender implements Runnable {
 
-	String mensagem = new String();
-	InetAddress enderecoDestino;
+	private String mensagem = new String();
+	private InetAddress enderecoDestino;
 
 	public void run() {
 		
@@ -24,17 +23,9 @@ public class ConfirmationResponseSender implements Runnable {
 			System.err.println("O servidor que solicitou o arquivo não está disponível para recebimento da confirmação");
 		}  
 	}
-	
-	public String getMensagem() {
-		return mensagem;
-	}
 
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
-	}
-	
-	public InetAddress getEnderecoDestino() {
-		return enderecoDestino;
 	}
 
 	public void setEnderecoDestino(InetAddress enderecoDestino) {
