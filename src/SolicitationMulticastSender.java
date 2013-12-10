@@ -46,7 +46,7 @@ public class SolicitationMulticastSender implements Runnable {
 	private void esperaRecebimentoResposta() {
 		
 		try { 
-			ConfirmationResponseReceiver confRcv = new ConfirmationResponseReceiver();
+			SocketMessageReceiver confRcv = new SocketMessageReceiver();
 			Thread threadConfirmationReceiver = new Thread(confRcv);	
 			threadConfirmationReceiver.start();
 		} catch (Exception e) {
