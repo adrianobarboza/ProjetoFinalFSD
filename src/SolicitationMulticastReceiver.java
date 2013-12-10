@@ -43,7 +43,7 @@ public class SolicitationMulticastReceiver implements Runnable {
 				if(inPacket.getAddress().toString().contains(InetAddress.getLocalHost().getHostAddress().toString()))	
 					continue;
 					
-				System.out.println("" + inPacket.getAddress() + " Solicitou o arquivo: " + msg);
+				System.out.println("\n" + inPacket.getAddress() + " Solicitou o arquivo: " + msg);
 
 				for(int i=0; i<listaDeArquivos.length; i++) {
 					if(listaDeArquivos[i].equals(msg)){
@@ -76,7 +76,6 @@ public class SolicitationMulticastReceiver implements Runnable {
 
 	}
 
-
 	public void respondaPosseArquivoSocket(InetAddress inetAddress) throws Exception {
 
 		try { 
@@ -106,7 +105,6 @@ public class SolicitationMulticastReceiver implements Runnable {
 		
 	}
 
-
 	public void respondaMulticast(String resposta) {
 
 		DatagramSocket socket = null;
@@ -129,7 +127,6 @@ public class SolicitationMulticastReceiver implements Runnable {
 		} catch (IOException ioe) {
 			System.out.println(ioe);
 		}
-
 	}
 	
 	@SuppressWarnings("unused")

@@ -18,19 +18,15 @@ public class Main {
 			diretorio = entrada.nextLine();
 		}
 		
-		entrada.close();
-
-		
 		SolicitationMulticastReceiver multiCastRcv = new SolicitationMulticastReceiver(diretorio);
 		Thread threadMultiCastRcv = new Thread(multiCastRcv);
 		threadMultiCastRcv.start();
 		
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		
 		SolicitationMulticastSender multiCastSnd = new SolicitationMulticastSender();
 		Thread threadMultiCastSnd = new Thread(multiCastSnd);
 		threadMultiCastSnd.start();
-		
 		
 	}
 

@@ -38,14 +38,10 @@ public class FileSender implements Runnable{
 		}  
 	}
 	
-	
-	
 	public FileSender(InetAddress endereco, String fileName) {
 		this.endereco = endereco;
 		this.fileName = fileName;
 	}
-
-
 
 	@SuppressWarnings("unused")
 	private FileSender(){}
