@@ -94,6 +94,8 @@ public class SolicitationMulticastReceiver implements Runnable {
 	
 	private void tentaEnviarArquivo(InetAddress address, String msg) {
 		try {
+			
+			Thread.sleep(3000);
 			FileSender fileSnd = new FileSender(address, msg);
 			Thread threadFileSender = new Thread (fileSnd);
 			threadFileSender.start();
