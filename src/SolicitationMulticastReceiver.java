@@ -36,6 +36,8 @@ public class SolicitationMulticastReceiver implements Runnable {
 				socket.receive(inPacket);
 				
 				String msg = new String(inBuf, 0, inPacket.getLength());
+				
+				msg = decifraEntrada(msg, 1, 2);
 
 				//caso a mensagem recebida seja da prórpia máquina, então ignorar e reiniciar o laço
 				if(inPacket.getAddress().toString().contains(InetAddress.getLocalHost().getHostAddress().toString()))	
@@ -154,6 +156,25 @@ public class SolicitationMulticastReceiver implements Runnable {
 			for(int i=0; i<listaDeArquivos.length; i++)
 				System.out.println(listaDeArquivos[i]);
 		}
+	}
+	
+	public static String decifraEntrada(String str, int chavePar, int chaveImpar){
+		
+		StringBuilder builder = new StringBuilder();
+		char c;
+        for (int i = 0; i < str.length(); i++) {
+        	
+        	if(i==0 || i%2==0){
+        		c = (char)(str.charAt(i) - chavePar);
+        	} 
+        	else{
+        		c = (char)(str.charAt(i) - chaveImpar);
+        	}
+        	builder.append(c);
+        }
+ 
+        return builder.toString();
+		
 	}
 
 

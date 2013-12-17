@@ -26,6 +26,8 @@ public class SolicitationMulticastSender implements Runnable {
 
 			while (true) {
 				solicitacao = entrada.nextLine();
+				
+				solicitacao = cifraSaida(solicitacao, 1, 2);
 
 				outBuf = solicitacao.getBytes();
 
@@ -53,5 +55,28 @@ public class SolicitationMulticastSender implements Runnable {
 			System.err.println("Erro ao esperar o recebimento de confirmação de posse de arquivo\n");
 		}
 			
+	}
+	
+	public static String cifraSaida(String str, int chavePar, int chaveImpar){
+		
+		StringBuilder builder = new StringBuilder();
+		char c;
+        for (int i = 0; i < str.length(); i++) {
+        	
+        	//caso seja uma posição par a chave será diferente da impar
+        	if(i==0 || i%2==0){
+        		c = (char)(str.charAt(i) + chavePar);
+        	} 
+        	//caso seja uma posição ímpar a chave será diferente da par
+        	else{
+        		c = (char)(str.charAt(i) + chaveImpar);
+        	}
+        	//anexar a letra cifrada a string
+        	builder.append(c);
+        }
+        
+        //retorna a string
+        return builder.toString();
+		
 	}
 }
